@@ -114,14 +114,13 @@
       }
       return false;
     }
-    for (var j = 0; j < array.length; j++){
-      if(!(inReturn(array[j]))){
-        returnArray.push(array[j])
+    _.each(array, function(item) {
+      if(!(inReturn(item))){
+        returnArray.push(item)
       }
-    }
+    })
     return returnArray;
   };
-
 
   // Return the results of applying an iterator to each element.
   _.map = function(collection, iterator) {
