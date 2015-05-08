@@ -120,6 +120,21 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    var returnArray = [];
+    var inReturn = function(val){
+      for (var i = 0; i < returnArray.length; i++){
+        if(val === returnArray[i]){
+          return true;
+        }
+      }
+      return false;
+    }
+    for (var j = 0; j < array.length; j++){
+      if(!(inReturn(array[j]))){
+        returnArray.push(array[j])
+      }
+    }
+    return returnArray;
   };
 
 
