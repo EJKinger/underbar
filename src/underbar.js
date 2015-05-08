@@ -105,14 +105,14 @@
     return failed;
   };
 
-
-
-
-  /*This is the version reusing _.filter().  Not yet working :(
-      return _.filter(collection, function(){
-        return !test(collection(item));
+  //This is the version reusing _.filter().  Not yet working :(
+  /*
+  _.reject = function(collection, test) {
+    var failed = [];
+    _.filter(collection, function(item){
+        failed.push(!test(item));
       })
-
+    return failed;
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
   };
