@@ -210,6 +210,12 @@
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
+    if (iterator === undefined){
+      iterator = _.identity;
+    }
+    return Boolean(!_.every(collection, function(item){
+      return !iterator(item);
+    }));
     // TIP: There's a very clever way to re-use every() here.
   };
 
