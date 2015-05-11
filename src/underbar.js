@@ -174,12 +174,13 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
-    var returnValue;
-    accumulator === undefined ? returnValue = collection.shift() : returnValue = accumulator;
+    if (accumulator === undefined){
+      accumulator = collection.shift();
+    }
     _.each(collection, function(item){
-      returnValue = iterator(returnValue, item);
+      accumulator = iterator(accumulator, item);
     })
-    return returnValue;
+    return accumulator;
   };
 
   // Determine if the array or object contains a given value (using `===`).
@@ -198,6 +199,12 @@
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
+    if (iterator === undefined){
+      iterator = _.identity;
+    }
+    return _.reduce(collection, function(talley, item){
+      return (talley && Boolean(iterator(item)));
+    }, true)
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
