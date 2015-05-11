@@ -104,7 +104,7 @@
   };
 
   // Produce a duplicate-free version of the array.
-  _.uniq = function(array) {
+    _.uniq = function(array) {
     var returnArray = [];
     var inReturn = function(val){
       for (var i = 0; i < returnArray.length; i++){
@@ -174,6 +174,12 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
+    var returnValue;
+    accumulator === undefined ? returnValue = collection.shift() : returnValue = accumulator;
+    _.each(collection, function(item){
+      returnValue = iterator(returnValue, item);
+    })
+    return returnValue;
   };
 
   // Determine if the array or object contains a given value (using `===`).
