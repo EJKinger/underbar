@@ -302,18 +302,29 @@
   // _.memoize should return a function that, when called, will check if it has
   // already computed the result for the given argument and return that value
   // instead if possible.
+
   _.memoize = function(func) {
+    var memoized = {};
+    return function() {
+      var args = _.identity.apply(null, arguments);
+      if (args in memoized){
+        return memoized[args];
+      }
+      else return (memoized[args] = func.apply(null, arguments));
+
+    };
   };
 
   // Delays a function for the given number of milliseconds, and then calls
   // it with the arguments supplied.
   //
   // The arguments for the original function are passed after the wait
-  // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
+  // parameter. For example (someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
-  _.delay = function(func, wait) {
+  _.delay = function(func, wait){
+    var args = Array.prototype.slice.call(arguments, 2);
+    return setTimeout(function(){return func.apply(this, args)}, wait);
   };
-
 
   /**
    * ADVANCED COLLECTION OPERATIONS
@@ -326,7 +337,37 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
-  };
+  
+    var areEqual = function(arr1, arr2){
+      for (var i = 0; i < arr1.length; i++){
+        if (arr1.length !== arr2.length){
+          return false;
+        }
+        if (arr1[i] !== arr2[i]){
+          return false;
+        }
+      }
+      return true;
+    }
+  
+    var randNum = function(){
+      return Math.floor(Math.random() * array.length);
+    }
+    var randArr = new Array(array.length);
+  
+    _.each(array, function(item){
+      var i = randNum();
+      while (typeof randArr[i] === "number"){
+        i = randNum();
+      }
+      randArr[i] = item;
+    })
+    
+   if (!(areEqual(array, randArr))){
+     return randArr;
+   }
+  else return (_.shuffle(array));
+};
 
 
   /**
