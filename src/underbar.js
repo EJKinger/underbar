@@ -98,7 +98,7 @@
   _.reject = function(collection, test) {
     return _.filter(collection, function(item){
         return (!test(item));
-      })
+      });
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
   };
@@ -113,12 +113,12 @@
         }
       }
       return false;
-    }
+    };
     _.each(array, function(item) {
       if(!(inReturn(item))){
-        returnArray.push(item)
+        returnArray.push(item);
       }
-    })
+    });
     return returnArray;
   };
 
@@ -127,7 +127,7 @@
     var returnArray = [];
     _.each(collection, function(item){
       returnArray.push(iterator(item));
-    })
+    });
     return returnArray;
 
     // map() is a useful primitive iteration function that works a lot
@@ -179,7 +179,7 @@
     }
     _.each(collection, function(item){
       accumulator = iterator(accumulator, item);
-    })
+    });
     return accumulator;
   };
 
@@ -204,7 +204,7 @@
     }
     return _.reduce(collection, function(talley, item){
       return (talley && Boolean(iterator(item)));
-    }, true)
+    }, true);
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
@@ -323,7 +323,7 @@
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait){
     var args = Array.prototype.slice.call(arguments, 2);
-    return setTimeout(function(){return func.apply(this, args)}, wait);
+    return setTimeout(function(){return func.apply(this, args);}, wait);
   };
 
   /**
@@ -348,11 +348,11 @@
         }
       }
       return true;
-    }
+    };
   
     var randNum = function(){
       return Math.floor(Math.random() * array.length);
-    }
+    };
     var randArr = new Array(array.length);
   
     _.each(array, function(item){
@@ -361,7 +361,7 @@
         i = randNum();
       }
       randArr[i] = item;
-    })
+    });
     
    if (!(areEqual(array, randArr))){
      return randArr;
