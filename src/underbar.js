@@ -174,10 +174,11 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
+    var col = JSON.parse(JSON.stringify(collection));
     if (accumulator === undefined){
-      accumulator = collection.shift();
+      accumulator = col.shift();
     }
-    _.each(collection, function(item){
+    _.each(col, function(item){
       accumulator = iterator(accumulator, item);
     });
     return accumulator;
@@ -411,7 +412,7 @@
     var returnValue = [];
     var length = _.reduce(args, function(a, b){
       return Math.max(a.length || a, b.length || b);
-    }, 0);
+    });
     console.log(args);
     console.log('length: ', length);
     for (var i = 0; i < length; i++){
