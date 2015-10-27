@@ -407,17 +407,24 @@
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3], ['d',undefined]]
   _.zip = function() {
     var args = Array.prototype.slice.call(arguments);
+    console.dir(args);
     var returnValue = [];
     var length = _.reduce(args, function(a, b){
-      return Math.max(a.length, b.length);
-    });
+      return Math.max(a.length || a, b.length || b);
+    }, 0);
+    console.log(args);
+    console.log('length: ', length);
     for (var i = 0; i < length; i++){
       var temp = [];
       for (var x = 0; x < args.length; x++){
-        temp.push(args[x][i] || undefined);
+        console.log('x, i: ' + x + ', ' + i);
+        console.log(args[x][i]);
+        temp.push(args[x][i]);
+        console.log('temp: ', temp);
       }
       returnValue.push(temp);
     }
+    console.log('returnValue: ', returnValue);
     return returnValue;
   };
 
