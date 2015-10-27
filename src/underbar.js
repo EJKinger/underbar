@@ -433,6 +433,14 @@
   //
   // Hint: Use Array.isArray to check if something is an array
   _.flatten = function(nestedArray, result) {
+    result = result || [];
+    _.each(nestedArray, function(arr){
+      if (Array.isArray(arr)){
+        result.concat(_.flatten(arr, result));
+      }
+      else (result.push(arr));
+    });
+    return result;
   };
 
   // Takes an arbitrary number of arrays and produces an array that contains
