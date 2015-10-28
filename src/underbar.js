@@ -450,16 +450,30 @@
     }
     for (var key in store){
       if (store[key] === args.length){
-        retVal.push(key);
+        retVal.push(key); 
       }
     }
-    console.log(retVal);
     return retVal;
   };
 
   // Take the difference between one array and a number of other arrays.
   // Only the elements present in just the first array will remain.
   _.difference = function(array) {
+    var store = {};
+    var retVal = [];
+    var args = Array.prototype.slice.call(arguments);
+    for (var i = 0; i < args.length; i++){
+      for (var x = 0; x < args[i].length; x++){
+        store[args[i][x]] = ++store[args[i][x]] || 1;
+      }
+    }
+    for (var z = 0; z < array.length; z++){
+      if (store[array[z]] === 1){
+        retVal.push(array[z]);
+      }
+    }
+    return retVal;
+
   };
 
   // Returns a function, that, when invoked, will only be triggered at most once
