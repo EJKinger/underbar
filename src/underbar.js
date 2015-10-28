@@ -408,24 +408,17 @@
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3], ['d',undefined]]
   _.zip = function() {
     var args = Array.prototype.slice.call(arguments);
-    console.dir(args);
     var returnValue = [];
     var length = _.reduce(args, function(a, b){
       return Math.max(a.length || a, b.length || b);
-    });
-    console.log(args);
-    console.log('length: ', length);
+    } );
     for (var i = 0; i < length; i++){
       var temp = [];
       for (var x = 0; x < args.length; x++){
-        console.log('x, i: ' + x + ', ' + i);
-        console.log(args[x][i]);
         temp.push(args[x][i]);
-        console.log('temp: ', temp);
       }
       returnValue.push(temp);
     }
-    console.log('returnValue: ', returnValue);
     return returnValue;
   };
 
@@ -447,6 +440,21 @@
   // Takes an arbitrary number of arrays and produces an array that contains
   // every item shared between all the passed-in arrays.
   _.intersection = function() {
+    var store = {};
+    var retVal = [];
+    var args = Array.prototype.slice.call(arguments);
+    for (var i = 0; i < args.length; i++){
+      for (var x = 0; x < args[i].length; x++){
+        store[args[i][x]] = ++store[args[i][x]] || 1;
+      }
+    }
+    for (var key in store){
+      if (store[key] === args.length){
+        retVal.push(key);
+      }
+    }
+    console.log(retVal);
+    return retVal;
   };
 
   // Take the difference between one array and a number of other arrays.
