@@ -399,6 +399,7 @@
   // of that string. For example, _.sortBy(people, 'name') should sort
   // an array of people by their name.
   _.sortBy = function(collection, iterator) {
+    collection.sort(iterator);
   };
 
   // Zip together two or more arrays with elements of the same index
@@ -450,16 +451,30 @@
     }
     for (var key in store){
       if (store[key] === args.length){
-        retVal.push(key);
+        retVal.push(key); 
       }
     }
-    console.log(retVal);
     return retVal;
   };
 
   // Take the difference between one array and a number of other arrays.
   // Only the elements present in just the first array will remain.
   _.difference = function(array) {
+    var store = {};
+    var retVal = [];
+    var args = Array.prototype.slice.call(arguments);
+    for (var i = 0; i < args.length; i++){
+      for (var x = 0; x < args[i].length; x++){
+        store[args[i][x]] = ++store[args[i][x]] || 1;
+      }
+    }
+    for (var z = 0; z < array.length; z++){
+      if (store[array[z]] === 1){
+        retVal.push(array[z]);
+      }
+    }
+    return retVal;
+
   };
 
   // Returns a function, that, when invoked, will only be triggered at most once
@@ -468,5 +483,10 @@
   //
   // Note: This is difficult! It may take a while to implement.
   _.throttle = function(func, wait) {
+    return function(func, wait){setTimeout(function(func){
+      console.log('called');
+      func();
+    }, wait);
+  };
   };
 }());
