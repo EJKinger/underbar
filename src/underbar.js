@@ -483,10 +483,17 @@
   //
   // Note: This is difficult! It may take a while to implement.
   _.throttle = function(func, wait) {
-    return function(func, wait){setTimeout(function(func){
-      console.log('called');
-      func();
-    }, wait);
-  };
+    var called = false;
+    return function(){
+      console.log('called ', called);
+      if (!called){
+        called = true;
+        setTimeout(function(){
+          console.log('EXECUTED');
+          func();
+          called = false;
+        }, wait);
+      }
+    };
   };
 }());
