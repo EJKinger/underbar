@@ -174,12 +174,11 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
-    var col = JSON.parse(JSON.stringify(collection));
-    if (accumulator === undefined){
-      accumulator = col.shift();
-    }
-    _.each(col, function(item){
-      accumulator = iterator(accumulator, item);
+    _.each(collection, function(item){
+      if (accumulator === undefined){
+        accumulator = item;
+      }
+      else accumulator = iterator(accumulator, item);
     });
     return accumulator;
   };
