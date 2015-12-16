@@ -51,9 +51,9 @@
   //
   // Note: _.each does not have a return value, but rather simply runs the
   // iterator function over each item in the input collection.
-  _.each = function(collection, iterator) {
+  _.each = function(collection, iterator, start) {
     if (Array.isArray(collection)){
-      for (var index = 0; index < collection.length; index++){
+      for (var index = start || 0; index < collection.length; index++){
         iterator(collection[index], index, collection);
       }
     }
@@ -256,7 +256,7 @@
       for (var item in arguments[i]){
         if (returnValue[item] === undefined){
           returnValue[item] = arguments[i][item];
-        }
+        } 
       }
     }
     return returnValue;
